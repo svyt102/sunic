@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>дуэт · дизайн и визуализация</title>
   <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABaklEQVR4nO2WzUrDUBSFT0Vw4cKNC1eC4MqV4MaFC1eC4MqV4MZn8AEUXLlyJQi6cuXChQsXLlz4s7C2kzY3TZqk0+Z+EEhJ7p17cu69SZqCIAiCIAiCIAiC8D9h5gVmA5gFsA7MFjA3gKkD0wRmB8w+YFYDcx+YJTAbYGbA7AbMTmAmwEwBcwdmETAzYFbA7AFmPTA7gJkCswuYPcDsBWYfMAeAeQKzH5hHwByCmQNzBJgHwDwC5gWY54D5DZgHYJ4B8waY14D5A5j3gHkPmA+AWQfMZ8B8Asw6YH4D5gtg1gHzHTA/AfMZMJ8B8wswXwDzBzBfAbMOmJ+A+QqYdcD8BcxXwPwDzFfArAPmP2C+AmYdML8B8xUw64D5C5ivgPkPmK+A+S9g/gNmHTD/AfMVMOuA+Q+Yr4BZB8x/wHwFzDpg/gPmK2DWAfMfMF8Bsw6Y/4D5Cph1wPwHzFfArAPmP2C+AmYdMP8B8xUw64D5D5ivgFkHzH/AfAXMOmD+A+YrYNYB8x8wXwGzDpj/gPkKmHXA/AfMV8CsA+Y/YL4CZh0w/wHzFbDqhQRBEARBEARBEH6DfwQAAP//7WlnDQAAAABJRU5ErkJggg==">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,6 +22,20 @@
     body.dark-theme .team-card { background: #1c1c1e !important; }
     body.dark-theme .step-card { background: #1c1c1e !important; }
     body.dark-theme .testimonial-card { background: #1c1c1e !important; }
+
+    /* ШАПКА С КОНТАКТАМИ */
+    .header-contacts { position: fixed; top: 0; right: 0; z-index: 100; display: flex; align-items: center; gap: 20px; padding: 20px 30px; background: transparent; }
+    .contact-phone, .contact-telegram { display: flex; align-items: center; gap: 8px; color: #1d1d1f; text-decoration: none; font-size: 1rem; font-weight: 500; padding: 8px 16px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 40px; border: 1px solid rgba(0,0,0,0.05); transition: all 0.2s; cursor: pointer; }
+    body.dark-theme .contact-phone, body.dark-theme .contact-telegram { color: #ffffff; background: rgba(28,28,30,0.8); border-color: rgba(255,255,255,0.1); }
+    .contact-phone:hover, .contact-telegram:hover { transform: scale(1.05); background: rgba(255,255,255,0.9); }
+    body.dark-theme .contact-phone:hover, body.dark-theme .contact-telegram:hover { background: rgba(28,28,30,0.95); }
+    .contact-phone svg, .contact-telegram svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* УВЕДОМЛЕНИЕ "СКОПИРОВАНО" */
+    .copy-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); color: #fff; padding: 12px 24px; border-radius: 40px; font-size: 0.9rem; z-index: 10000; transition: transform 0.3s ease; pointer-events: none; }
+    .copy-toast.show { transform: translateX(-50%) translateY(0); }
+    body.dark-theme .copy-toast { background: rgba(255,255,255,0.15); color: #fff; }
+
     #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
     body.dark-theme #preloader { background: #000000; }
     .preloader-content { text-align: center; width: 100%; padding: 0 40px; }
@@ -70,11 +84,12 @@
     .hero-content { position: relative; z-index: 10; max-width: 900px; width: 100%; padding: 0 24px; text-align: center; }
     .hero-content h1, .hero-content p { color: #1d1d1f; }
     .typewriter-wrapper { display: inline-block; }
-    .typewriter { overflow: hidden; border-right: 2px solid #1d1d1f; white-space: nowrap; margin: 0 auto; letter-spacing: normal; animation: typing 2.5s steps(30, end), blink-caret 0.75s step-end infinite; width: 0; animation-fill-mode: forwards; }
+    .typewriter { overflow: hidden; border-right: 2px solid #1d1d1f; white-space: nowrap; margin: 0 auto; letter-spacing: normal; width: 0; }
+    .typewriter.typing { animation: typing 2.5s steps(30, end) forwards, blink-caret 0.75s step-end infinite; }
     body.dark-theme .typewriter { border-right-color: #ffffff; }
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     @keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: #1d1d1f; } }
-    body.dark-theme .typewriter { animation: typing 2.5s steps(30, end), blink-caret-dark 0.75s step-end infinite; }
+    body.dark-theme .typewriter.typing { animation: typing 2.5s steps(30, end) forwards, blink-caret-dark 0.75s step-end infinite; }
     @keyframes blink-caret-dark { from, to { border-color: transparent; } 50% { border-color: #ffffff; } }
     .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px; }
     .team-card { padding: 40px 28px; border-radius: 28px; transition: transform 0.3s, box-shadow 0.3s; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.7); }
@@ -115,12 +130,33 @@
     .gallery-header { position: absolute; top: 80px; left: 0; width: 100%; z-index: 10; text-align: center; pointer-events: none; }
     .gallery-header h2 { color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
     .carousel-large { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 1; }
-    .carousel-track-large { display: flex; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); width: fit-content; height: 100vh; }
-    .carousel-item-large { width: 100vw; height: 100vh; overflow: hidden; flex-shrink: 0; }
+    .carousel-track-large { display: flex; transition: transform 0.4s ease; width: fit-content; height: 100vh; }
+    .carousel-item-large {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-item-large:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(0,0,0,0.3);
+  z-index: 5;
+}
+
+.carousel-item-large:active {
+  transform: scale(0.98);
+}
     .carousel-item-large img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.5s; }
     .carousel-item-large img.loaded { opacity: 1; }
+    .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); color: #ffffff; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20; transition: all 0.2s; }
+    .gallery-arrow:hover { background: rgba(0,0,0,0.5); transform: translateY(-50%) scale(1.1); }
+    .gallery-prev { left: 20px; }
+    .gallery-next { right: 20px; }
     .gallery-indicators { position: absolute; bottom: 30px; left: 0; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 100 !important; pointer-events: none; }
-    .gallery-dot { width: 10px; height: 10px; border-radius: 5px; background: rgba(255, 255, 255, 0.4); transition: all 0.3s; pointer-events: auto; }
+    .gallery-dot { width: 10px; height: 10px; border-radius: 5px; background: rgba(255, 255, 255, 0.4); transition: all 0.3s; pointer-events: auto; cursor: pointer; }
     .gallery-dot.active { width: 28px; background: #ffffff; }
     .contact-accordion { max-width: 500px; margin: 24px auto 0; }
     .contact-item { border-bottom: 1px solid; margin-bottom: 6px; }
@@ -154,401 +190,61 @@
     .back-btn { display: inline-block; padding: 10px 0; font-size: 1rem; font-weight: 500; color: #ffffff; text-decoration: none; margin-bottom: 30px; }
     .back-btn:hover { opacity: 0.6; }
     .project-meta { display: flex; gap: 16px; margin: 20px 0 24px; color: #a1a1a6; }
-    .project-video-container { margin: 30px 0; border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; background: #1c1c1e; position: relative; }
-    .project-video-container .video-placeholder { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #1c1c1e; display: flex !important; align-items: center; justify-content: center; z-index: 2; transition: opacity 0.3s ease; border-radius: 20px; }
-    .project-video-container .video-placeholder::after { content: ''; width: 40px; height: 40px; border: 3px solid #3a3a3c; border-top-color: #ffffff; border-radius: 50%; animation: spin 1s linear infinite; }
-    .project-video { width: 100%; height: 100%; object-fit: cover; display: block; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .project-media-container { position: relative; margin: 30px 0; border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; background: #1c1c1e; }
+    .media-slider { display: flex; width: 100%; height: 100%; transition: transform 0.4s ease; }
+    .media-slide { width: 100%; height: 100%; flex-shrink: 0; }
+    .media-slide img, .media-slide video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .media-dots { position: absolute; bottom: 15px; left: 0; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 5; }
+    .media-dot { width: 8px; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.5); transition: all 0.3s; cursor: pointer; }
+    .media-dot.active { width: 20px; background: #ffffff; }
+    .media-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); color: #ffffff; font-size: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all 0.2s; }
+    .media-arrow:hover { background: rgba(0,0,0,0.7); }
+    .media-prev { left: 15px; }
+    .media-next { right: 15px; }
     footer { padding: 30px 0; font-size: 0.85rem; border-top: 1px solid; }
     .section-white footer, .section-gray footer { color: #86868b; border-color: #e8e8ed; }
     .section-black footer { color: #a1a1a6; border-color: #2a2a2c; }
-    @media (max-width: 768px) { .team-grid, .steps-grid, .testimonials-grid, .projects-grid { grid-template-columns: 1fr; } section { padding: 60px 0; } .theme-toggle { bottom: 20px; right: 20px; } .scroll-top { bottom: 90px; right: 20px; } }
-  /* ИСПРАВЛЕНИЕ РАМОК В ПРОЕКТАХ — ОНИ ПОЯВЛЯЮТСЯ И КОРРЕКТНО ИСЧЕЗАЮТ */
-.project-video-container .video-placeholder {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #1c1c1e;
-  z-index: 2;
-  border-radius: 20px;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
 
-.project-video-container .video-placeholder::after {
-  content: '';
-  width: 40px;
-  height: 40px;
-  border: 3px solid #3a3a3c;
-  border-top-color: #ffffff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.project-video {
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-    /* ФИНАЛЬНЫЙ ФИКС: РАМКИ ЕСТЬ И КРАСИВО ИСЧЕЗАЮТ */
-.project-video-container {
-  position: relative;
-}
-
-.project-video-container .video-placeholder {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #1c1c1e;
-  z-index: 2;
-  border-radius: 20px;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.project-video-container .video-placeholder::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 40px;
-  border: 3px solid #3a3a3c;
-  border-top-color: #ffffff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.project-video {
-  position: relative;
-  z-index: 1;
-  display: block;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-    /* АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
-max-width: 768px {
-  .team-grid,
-  .steps-grid,
-  .testimonials-grid,
-  .projects-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px;
-  }
-
-  section {
-    padding: 60px 0;
-  }
-
-  h1 {
-    font-size: clamp(2.5rem, 8vw, 3.5rem) !important;
-  }
-
-  h2 {
-    font-size: clamp(1.8rem, 6vw, 2.5rem) !important;
-  }
-
-  .hero-subhead {
-    font-size: 1.1rem !important;
-  }
-
-  .container {
-    padding: 0 16px;
-  }
-
-  .theme-toggle {
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-  }
-
-  .scroll-top {
-    bottom: 80px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-  }
-
-  .gallery-header {
-    top: 60px;
-  }
-
-  .gallery-header h2 {
-    font-size: 1.8rem !important;
-  }
-
-  .gallery-indicators {
-    bottom: 20px;
-  }
-
-  .project-card {
-    padding: 20px !important;
-  }
-
-  .project-title {
-    font-size: 1.2rem !important;
-  }
-
-  .project-video-container {
-    margin: 20px 0;
-  }
-
-  .back-btn {
-    margin-bottom: 20px;
-  }
-
-  .contact-accordion {
-    max-width: 100%;
-  }
-
-  .contact-header {
-    font-size: 1.1rem !important;
-  }
-
-  /* Чтобы текст не вылезал за края */
-  .hero-content {
-    padding: 0 16px !important;
-  }
-
-  /* Карточки не сжимаются */
-  .team-card, .step-card, .testimonial-card {
-    padding: 30px 20px !important;
-  }
-
-  /* Типографика */
-  body {
-    line-height: 1.3;
-  }
-
-  p, .project-desc, .step-desc {
-    font-size: 0.95rem !important;
-  }
-}
-
-/* Для очень маленьких экранов (iPhone SE и т.п.) */
-max-width: 480px {
-  h1 {
-    font-size: 2.2rem !important;
-  }
-
-  .hero-subhead {
-    font-size: 1rem !important;
-  }
-
-  .watch-video-btn {
-    padding: 12px 24px !important;
-    font-size: 0.9rem !important;
-  }
-
-  .gallery-dot {
-    width: 8px;
-    height: 8px;
-  }
-
-  .gallery-dot.active {
-    width: 24px;
-  }
-}
-    /* ГАРАНТИРОВАННЫЙ ФИКС ДЛЯ ВСЕХ ТЕЛЕФОНОВ */
-max-width: 768px {
-  section {
-    padding: 50px 0 !important;
-  }
-
-  h1 {
-    font-size: 2.8rem !important;
-    line-height: 1.1 !important;
-    word-break: break-word !important;
-  }
-
-  h2 {
-    font-size: 2rem !important;
-    margin-bottom: 15px !important;
-  }
-
-  .hero {
-    min-height: 100vh;
-    height: auto;
-  }
-
-  .hero-content {
-    padding: 0 20px !important;
-  }
-
-  .hero-subhead {
-    font-size: 1.2rem !important;
-  }
-
-  .container {
-    padding: 0 20px !important;
-  }
-
-  .team-grid,
-  .steps-grid,
-  .testimonials-grid,
-  .projects-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
-  }
-
-  .project-card,
-  .team-card,
-  .step-card,
-  .testimonial-card {
-    width: 100% !important;
-    padding: 25px 20px !important;
-    margin: 0 !important;
-  }
-
-  .project-icon {
-    font-size: 1.8rem !important;
-  }
-
-  .project-title {
-    font-size: 1.3rem !important;
-  }
-
-  /* Галерея на телефонах */
-  .gallery-section {
-    height: 100vh !important;
-  }
-
-  .gallery-container {
-    height: 100vh !important;
-  }
-
-  .carousel-large {
-    height: 100vh !important;
-  }
-
-  .carousel-item-large {
-    height: 100vh !important;
-  }
-
-  .carousel-item-large img {
-    object-fit: cover !important;
-  }
-
-  .gallery-header {
-    top: 60px !important;
-  }
-
-  .gallery-header h2 {
-    font-size: 1.8rem !important;
-  }
-
-  .gallery-indicators {
-    bottom: 25px !important;
-  }
-
-  /* Кнопки */
-  .theme-toggle {
-    bottom: 20px !important;
-    right: 20px !important;
-    width: 48px !important;
-    height: 48px !important;
-  }
-
-  .scroll-top {
-    bottom: 85px !important;
-    right: 20px !important;
-    width: 48px !important;
-    height: 48px !important;
-  }
-
-  .watch-video-btn {
-    padding: 12px 28px !important;
-    font-size: 1rem !important;
-  }
-
-  /* Страницы проектов */
-  .project-page-content {
-    padding: 0 16px !important;
-  }
-
-  .project-page-content h2 {
-    font-size: 2rem !important;
-  }
-
-  .project-video-container {
-    margin: 20px 0 !important;
-  }
-
-  /* Контакты */
-  .contact-header {
-    font-size: 1.2rem !important;
-  }
-
-  .contact-link-info {
-    font-size: 0.95rem !important;
-  }
-
-  footer {
-    padding: 25px 0 !important;
-  }
-
-  /* Типографика */
-  body {
-    line-height: 1.4 !important;
-  }
-
-  p, li, .project-desc, .step-desc, .testimonial-text {
-    font-size: 1rem !important;
-  }
-
-  /* Убираем горизонтальный скролл */
-  html, body {
-    overflow-x: hidden !important;
-    width: 100% !important;
-  }
-}
-
-/* Для самых маленьких (iPhone SE, mini) */
-max-width: 380px {
-  h1 {
-    font-size: 2.2rem !important;
-  }
-
-  h2 {
-    font-size: 1.8rem !important;
-  }
-
-  .hero-subhead {
-    font-size: 1rem !important;
-  }
-
-  .skill-tag {
-    padding: 4px 10px !important;
-    font-size: 0.75rem !important;
-  }
-
-  .gallery-dot {
-    width: 8px !important;
-    height: 8px !important;
-  }
-
-  .gallery-dot.active {
-    width: 22px !important;
-  }
-}
+    @media screen and (max-width: 768px) {
+      * { max-width: 100vw !important; }
+      body { overflow-x: hidden !important; width: 100% !important; }
+      section { padding: 40px 0 !important; }
+      h1 { font-size: 2.5rem !important; }
+      h2 { font-size: 1.8rem !important; }
+      .hero { min-height: 100vh; height: auto; padding: 0 !important; }
+      .hero-content { padding: 0 20px !important; }
+      .container { padding: 0 20px !important; }
+      .team-grid, .steps-grid, .testimonials-grid, .projects-grid { display: block !important; }
+      .team-card, .step-card, .testimonial-card, .project-card { display: block !important; width: 100% !important; margin-bottom: 20px !important; }
+      .gallery-section { height: 100vh !important; }
+      .carousel-item-large { height: 100vh !important; }
+      .carousel-item-large img { height: 100vh !important; object-fit: cover !important; }
+      .gallery-header { top: 50px !important; }
+      .theme-toggle, .scroll-top { width: 50px !important; height: 50px !important; bottom: 20px !important; right: 20px !important; }
+      .scroll-top { bottom: 80px !important; }
+      p, .project-desc, .hero-subhead { font-size: 1rem !important; }
+      .gallery-arrow { width: 40px; height: 40px; }
+      .gallery-prev { left: 10px; }
+      .gallery-next { right: 10px; }
+    }
   </style>
 </head>
 <body>
+
+<!-- УВЕДОМЛЕНИЕ "СКОПИРОВАНО" -->
+<div class="copy-toast" id="copyToast">Скопировано</div>
+
+<!-- ШАПКА С КОНТАКТАМИ -->
+<div class="header-contacts">
+  <div class="contact-phone" onclick="copyToClipboard('+79638947318')">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    <span>+7 963 894-73-18</span>
+  </div>
+  <div class="contact-telegram" onclick="copyToClipboard('@sunic3d')">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.66-.35-1.02.22-1.61.15-.15 2.72-2.49 2.77-2.7.01-.03.01-.14-.05-.2-.07-.05-.17-.03-.24-.02-.1.02-1.71 1.09-4.83 3.2-.46.31-.87.47-1.24.46-.41-.01-1.19-.23-1.77-.42-.71-.23-1.28-.35-1.23-.74.03-.2.3-.41.82-.62 3.23-1.41 5.38-2.34 6.45-2.79 3.07-1.28 3.71-1.5 4.13-1.51.09 0 .3.02.43.13.11.09.14.22.16.31.01.1.02.31 0 .48z"/></svg>
+    <span>@sunic3d</span>
+  </div>
+</div>
 
 <!-- Прелоадер -->
 <div id="preloader">
@@ -561,17 +257,12 @@ max-width: 380px {
 
 <!-- Переключатель темы -->
 <div class="theme-toggle" id="themeToggle">
-  <svg viewBox="0 0 24 24">
-    <path d="M12 3v-1a9 9 0 1 0 9 9h-1a8 8 0 1 1-8-8z"/>
-    <circle cx="12" cy="12" r="4"/>
-  </svg>
+  <svg viewBox="0 0 24 24"><path d="M12 3v-1a9 9 0 1 0 9 9h-1a8 8 0 1 1-8-8z"/><circle cx="12" cy="12" r="4"/></svg>
 </div>
 
 <!-- Кнопка Наверх -->
 <div class="scroll-top" id="scrollTop">
-  <svg viewBox="0 0 24 24">
-    <path d="M12 4l-8 8h6v8h4v-8h6z"/>
-  </svg>
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg>
 </div>
 
 <!-- Hero -->
@@ -609,13 +300,9 @@ max-width: 380px {
         <div class="team-name">Святослав</div>
         <div class="team-role">3D-визуализатор и аниматор</div>
         <div class="skill-tags">
-          <span class="skill-tag">SketchUp</span>
-          <span class="skill-tag">Blender</span>
-          <span class="skill-tag">Kompas-3D</span>
-          <span class="skill-tag">3D-Продукция</span>
-          <span class="skill-tag">Web-Разработка</span>
-          <span class="skill-tag">Анимация интерьеров</span>
-          <span class="skill-tag">Фотореализм</span>
+          <span class="skill-tag">SketchUp</span><span class="skill-tag">Blender</span><span class="skill-tag">Kompas-3D</span>
+          <span class="skill-tag">3D-Продукция</span><span class="skill-tag">Web-Разработка</span>
+          <span class="skill-tag">Анимация интерьеров</span><span class="skill-tag">Фотореализм</span>
         </div>
         <p style="margin-top: 20px; color: #6e6e73; line-height: 1.4;">
           Превращаю планы и эскизы в живые интерьеры. Делаю анимации, которые радуют глаз. Создаю ваши желания в чьи-то мечты
@@ -626,10 +313,8 @@ max-width: 380px {
         <div class="team-name">Соня</div>
         <div class="team-role">Графический дизайнер и дизайнер интерьеров</div>
         <div class="skill-tags">
-          <span class="skill-tag">Айдентика и логотипы</span>
-          <span class="skill-tag">Визитки и брендбук</span>
-          <span class="skill-tag">Дизайн интерьеров</span>
-          <span class="skill-tag">Figma / Illustrator</span>
+          <span class="skill-tag">Айдентика и логотипы</span><span class="skill-tag">Визитки и брендбук</span>
+          <span class="skill-tag">Дизайн интерьеров</span><span class="skill-tag">Figma / Illustrator</span>
           <span class="skill-tag">Колористика</span>
         </div>
         <p style="margin-top: 20px; color: #6e6e73; line-height: 1.4;">
@@ -646,21 +331,9 @@ max-width: 380px {
     <h2 class="animate-on-scroll">как мы работаем</h2>
     <div class="section-subhead animate-on-scroll">прозрачный процесс от идеи до результата</div>
     <div class="steps-grid">
-      <div class="step-card animate-on-scroll">
-        <div class="step-number">01</div>
-        <div class="step-title">Бриф</div>
-        <div class="step-desc">Обсуждаем задачу, референсы и сроки.</div>
-      </div>
-      <div class="step-card animate-on-scroll">
-        <div class="step-number">02</div>
-        <div class="step-title">Концепция</div>
-        <div class="step-desc">Предлагаем варианты и утверждаем стиль.</div>
-      </div>
-      <div class="step-card animate-on-scroll">
-        <div class="step-number">03</div>
-        <div class="step-title">Реализация</div>
-        <div class="step-desc">Создаём финальный продукт.</div>
-      </div>
+      <div class="step-card animate-on-scroll"><div class="step-number">01</div><div class="step-title">Бриф</div><div class="step-desc">Обсуждаем задачу, референсы и сроки.</div></div>
+      <div class="step-card animate-on-scroll"><div class="step-number">02</div><div class="step-title">Концепция</div><div class="step-desc">Предлагаем варианты и утверждаем стиль.</div></div>
+      <div class="step-card animate-on-scroll"><div class="step-number">03</div><div class="step-title">Реализация</div><div class="step-desc">Создаём финальный продукт.</div></div>
     </div>
   </div>
 </section>
@@ -668,17 +341,14 @@ max-width: 380px {
 <!-- Галерея -->
 <section id="gallery" class="section-black gallery-section">
   <div class="gallery-container">
-    <div class="gallery-header">
-      <h2 class="animate-on-scroll" style="margin-bottom: 0;">наши работы</h2>
-    </div>
-    <div class="carousel-large animate-on-scroll">
+    <div class="gallery-header"><h2 class="animate-on-scroll">наши работы</h2></div>
+    <div class="carousel-large" id="galleryCarousel">
       <div class="carousel-track-large" id="carouselLarge"></div>
+      <button class="gallery-arrow gallery-prev" id="galleryPrev">←</button>
+      <button class="gallery-arrow gallery-next" id="galleryNext">→</button>
     </div>
     <div class="gallery-indicators" id="galleryIndicators">
-      <span class="gallery-dot active"></span>
-      <span class="gallery-dot"></span>
-      <span class="gallery-dot"></span>
-      <span class="gallery-dot"></span>
+      <span class="gallery-dot active"></span><span class="gallery-dot"></span><span class="gallery-dot"></span><span class="gallery-dot"></span>
     </div>
   </div>
 </section>
@@ -687,7 +357,7 @@ max-width: 380px {
 <section id="projects" class="section-gray">
   <div class="container text-center">
     <h2 class="animate-on-scroll">избранные проекты</h2>
-    <div class="section-subhead animate-on-scroll">нажмите на карточку, чтобы узнать больше</div>
+    <div class="section-subhead animate-on-scroll">нажмите на карточку для подробной информации</div>
     <div class="projects-grid" id="projectsContainer"></div>
   </div>
 </section>
@@ -716,20 +386,11 @@ max-width: 380px {
 <section id="contact" class="section-black">
   <div class="container text-center">
     <h2 class="animate-on-scroll">связаться с нами</h2>
-    <div class="section-subhead animate-on-scroll">выберите удобный способ</div>
+    <div class="section-subhead animate-on-scroll">выберите способ</div>
     <div class="contact-accordion">
-      <div class="contact-item">
-        <div class="contact-header"><span>Telegram</span><span class="contact-arrow">+</span></div>
-        <div class="contact-content"><div class="contact-link-info">@sunic3d <button class="copy-btn" onclick="copyToClipboard('@sunic3d')">копировать</button></div></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-header"><span>WhatsApp</span><span class="contact-arrow">+</span></div>
-        <div class="contact-content"><div class="contact-link-info">+7 963 894 73 18 <button class="copy-btn" onclick="copyToClipboard('+79638947318')">копировать</button></div></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-header"><span>Email</span><span class="contact-arrow">+</span></div>
-        <div class="contact-content"><div class="contact-link-info">nubikpro2018@mail.ru <button class="copy-btn" onclick="copyToClipboard('nubikpro2018@mail.ru')">копировать</button></div></div>
-      </div>
+      <div class="contact-item"><div class="contact-header"><span>Telegram</span><span class="contact-arrow">+</span></div><div class="contact-content"><div class="contact-link-info">@sunic3d <button class="copy-btn" onclick="copyToClipboard('@sunic3d')">копировать</button></div></div></div>
+      <div class="contact-item"><div class="contact-header"><span>WhatsApp</span><span class="contact-arrow">+</span></div><div class="contact-content"><div class="contact-link-info">+7 963 894 73 18 <button class="copy-btn" onclick="copyToClipboard('+79638947318')">копировать</button></div></div></div>
+      <div class="contact-item"><div class="contact-header"><span>Email</span><span class="contact-arrow">+</span></div><div class="contact-content"><div class="contact-link-info">nubikpro2018@mail.ru <button class="copy-btn" onclick="copyToClipboard('nubikpro2018@mail.ru')">копировать</button></div></div></div>
     </div>
   </div>
   <footer><div class="container text-center">© 2026 · дуэт дизайна и формы</div></footer>
@@ -737,147 +398,44 @@ max-width: 380px {
 
 <!-- Fullscreen видео -->
 <div class="video-fullscreen" id="fullscreenVideo">
-  <video class="video-fullscreen-bg" autoplay muted loop playsinline>
-    <source src="video/hero/fon.mp4" type="video/mp4">
-  </video>
-  <div class="video-overlay">
-    <div class="video-content">
-      <h2>Мы создаём пространство,<br>в которое хочется возвращаться</h2>
-      <p>Посмотрите, как мы работаем</p>
-    </div>
-  </div>
+  <video class="video-fullscreen-bg" autoplay muted loop playsinline><source src="video/hero/fon.mp4" type="video/mp4"></video>
+  <div class="video-overlay"><div class="video-content"><h2>Мы создаём пространство,<br>в которое хочется возвращаться</h2><p>Посмотрите, как мы работаем</p></div></div>
   <div class="video-close" onclick="closeFullscreenVideo()">✕</div>
 </div>
 
 <!-- Страницы проектов -->
-<div class="project-page" id="page-penthouse">
-  <div class="project-page-content">
-    <a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a>
-    <h2 style="font-size: 2.5rem; margin-bottom: 8px;">Ванная комната</h2>
-    <div class="project-meta"><span>Совместный проект</span><span>2026</span></div>
-    <p style="color: #a1a1a6; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.5;">Полный цикл визуализации: от рабочих чертежей до финального анимационного ролика.</p>
-    <div class="project-video-container">
-      <div class="video-placeholder"></div>
-      <video class="project-video" autoplay muted loop playsinline>
-        <source src="video/projects/file2.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</div>
-
-<div class="project-page" id="page-coffee-brand">
-  <div class="project-page-content">
-    <a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a>
-    <h2 style="font-size: 2.5rem; margin-bottom: 8px;">Офис</h2>
-    <div class="project-meta"><span>Совместный проект</span><span>2026</span></div>
-    <p style="color: #a1a1a6; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.5;">Разработка визуального образа для нового офиса. От чертежа до реализации.</p>
-
-    <!-- ВОТ ЭТОТ БЛОК ДОЛЖЕН БЫТЬ ОДИНАКОВЫМ ВО ВСЕХ ПРОЕКТАХ -->
-    <div class="project-video-container">
-      <div class="video-placeholder"></div>
-      <video class="project-video" autoplay muted loop playsinline>
-        <source src="video/projects/file1.mp4" type="video/mp4">
-      </video>
-    </div>
-    <!-- КОНЕЦ БЛОКА -->
-
-  </div>
-</div>
-
-<div class="project-page" id="page-loft-studio">
-  <div class="project-page-content">
-    <a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a>
-    <h2 style="font-size: 2.5rem; margin-bottom: 8px;">пусто 78 м²</h2>
-    <div class="project-meta"><span>совместный проект</span><span>2025</span></div>
-    <p style="color: #a1a1a6; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.5;">Соня разработала планировку и стиль, Святослав визуализировал помещения.</p>
-    <div class="project-video-container">
-      <div class="video-placeholder"></div>
-      <video class="project-video" autoplay muted loop playsinline>
-        <source src="video/projects/file3.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</div>
-
-<div class="project-page" id="page-jewelry-brand">
-  <div class="project-page-content">
-    <a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a>
-    <h2 style="font-size: 2.5rem; margin-bottom: 8px;">пусто</h2>
-    <div class="project-meta"><span>Соня</span><span>2024</span></div>
-    <p style="color: #a1a1a6; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.5;">Логотип, паттерн, визитки и упаковка премиум-класса.</p>
-    <div class="project-video-container">
-      <div class="video-placeholder"></div>
-      <video class="project-video" autoplay muted loop playsinline>
-        <source src="video/projects/file4.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</div>
-
-<div class="project-page" id="page-country-house">
-  <div class="project-page-content">
-    <a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a>
-    <h2 style="font-size: 2.5rem; margin-bottom: 8px;">пусто</h2>
-    <div class="project-meta"><span>Святослав</span><span>2025</span></div>
-    <p style="color: #a1a1a6; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.5;">Экстерьер и интерьер в скандинавском стиле. 12 ракурсов.</p>
-    <div class="project-video-container">
-      <div class="video-placeholder"></div>
-      <video class="project-video" autoplay muted loop playsinline>
-        <source src="video/projects/file5.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</div>
-
-<div class="project-page" id="page-beauty-salon">
-  <div class="project-page-content">
-    <a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a>
-    <h2 style="font-size: 2.5rem; margin-bottom: 8px;">пусто</h2>
-    <div class="project-meta"><span>Соня</span><span>2025</span></div>
-    <p style="color: #a1a1a6; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.5;">Концепция, планировка, подбор материалов для салона 120 м².</p>
-    <div class="project-video-container">
-      <div class="video-placeholder"></div>
-      <video class="project-video" autoplay muted loop playsinline>
-        <source src="video/projects/file6.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</div>
+<div class="project-page" id="page-penthouse"><div class="project-page-content"><a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a><h2 style="font-size:2.5rem;margin-bottom:8px;">Ванная комната</h2><div class="project-meta"><span>Совместный проект</span><span>2026</span></div><p style="color:#a1a1a6;font-size:1.1rem;margin-bottom:30px;">Полный цикл визуализации: от рабочих чертежей до финального анимационного ролика.</p><div class="project-media-container"><div class="media-slider" id="slider-penthouse"><div class="media-slide"><video class="project-video" autoplay muted loop playsinline><source src="video/projects/file2.mp4" type="video/mp4"></video></div><div class="media-slide"><img src="images/projects/vana1.jpg" alt="Фото 1"></div><div class="media-slide"><img src="images/projects/vana2.jpg" alt="Фото 2"></div></div><div class="media-dots"><span class="media-dot active"></span><span class="media-dot"></span><span class="media-dot"></span></div><button class="media-arrow media-prev">←</button><button class="media-arrow media-next">→</button></div></div></div>
+<div class="project-page" id="page-coffee-brand"><div class="project-page-content"><a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a><h2 style="font-size:2.5rem;margin-bottom:8px;">Офис</h2><div class="project-meta"><span>Совместный проект</span><span>2026</span></div><p style="color:#a1a1a6;font-size:1.1rem;margin-bottom:30px;">Разработка визуального образа для нового офиса. От чертежа до реализации.</p><div class="project-media-container"><div class="media-slider" id="slider-coffee"><div class="media-slide"><video class="project-video" autoplay muted loop playsinline><source src="video/projects/file1.mp4" type="video/mp4"></video></div><div class="media-slide"><img src="images/projects/office-1.jpg" alt="Фото 1"></div><div class="media-slide"><img src="images/projects/office-2.jpg" alt="Фото 2"></div></div><div class="media-dots"><span class="media-dot active"></span><span class="media-dot"></span><span class="media-dot"></span></div><button class="media-arrow media-prev">←</button><button class="media-arrow media-next">→</button></div></div></div>
+<div class="project-page" id="page-loft-studio"><div class="project-page-content"><a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a><h2 style="font-size:2.5rem;margin-bottom:8px;">Лофт-студия 78 м²</h2><div class="project-meta"><span>совместный проект</span><span>2025</span></div><p style="color:#a1a1a6;font-size:1.1rem;margin-bottom:30px;">Соня разработала планировку и стиль, Святослав визуализировал помещения.</p><div class="project-media-container"><div class="media-slider" id="slider-loft"><div class="media-slide"><video class="project-video" autoplay muted loop playsinline><source src="video/projects/file1.mp4" type="video/mp4"></video></div><div class="media-slide"><img src="images/projects/loft-1.jpg" alt="Фото 1"></div><div class="media-slide"><img src="images/projects/loft-2.jpg" alt="Фото 2"></div></div><div class="media-dots"><span class="media-dot active"></span><span class="media-dot"></span><span class="media-dot"></span></div><button class="media-arrow media-prev">←</button><button class="media-arrow media-next">→</button></div></div></div>
+<div class="project-page" id="page-jewelry-brand"><div class="project-page-content"><a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a><h2 style="font-size:2.5rem;margin-bottom:8px;">AURUM</h2><div class="project-meta"><span>Соня</span><span>2024</span></div><p style="color:#a1a1a6;font-size:1.1rem;margin-bottom:30px;">Логотип, паттерн, визитки и упаковка премиум-класса.</p><div class="project-media-container"><div class="media-slider" id="slider-jewelry"><div class="media-slide"><video class="project-video" autoplay muted loop playsinline><source src="video/projects/file1.mp4" type="video/mp4"></video></div><div class="media-slide"><img src="images/projects/aurum-1.jpg" alt="Фото 1"></div><div class="media-slide"><img src="images/projects/aurum-2.jpg" alt="Фото 2"></div></div><div class="media-dots"><span class="media-dot active"></span><span class="media-dot"></span><span class="media-dot"></span></div><button class="media-arrow media-prev">←</button><button class="media-arrow media-next">→</button></div></div></div>
+<div class="project-page" id="page-country-house"><div class="project-page-content"><a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a><h2 style="font-size:2.5rem;margin-bottom:8px;">Загородный дом</h2><div class="project-meta"><span>Святослав</span><span>2025</span></div><p style="color:#a1a1a6;font-size:1.1rem;margin-bottom:30px;">Экстерьер и интерьер в скандинавском стиле. 12 ракурсов.</p><div class="project-media-container"><div class="media-slider" id="slider-country"><div class="media-slide"><video class="project-video" autoplay muted loop playsinline><source src="video/projects/file1.mp4" type="video/mp4"></video></div><div class="media-slide"><img src="images/projects/house-1.jpg" alt="Фото 1"></div><div class="media-slide"><img src="images/projects/house-2.jpg" alt="Фото 2"></div></div><div class="media-dots"><span class="media-dot active"></span><span class="media-dot"></span><span class="media-dot"></span></div><button class="media-arrow media-prev">←</button><button class="media-arrow media-next">→</button></div></div></div>
+<div class="project-page" id="page-beauty-salon"><div class="project-page-content"><a href="#" class="back-btn" onclick="closeProjectPage()">← назад</a><h2 style="font-size:2.5rem;margin-bottom:8px;">BOTANICA</h2><div class="project-meta"><span>Соня</span><span>2025</span></div><p style="color:#a1a1a6;font-size:1.1rem;margin-bottom:30px;">Концепция, планировка, подбор материалов для салона 120 м².</p><div class="project-media-container"><div class="media-slider" id="slider-beauty"><div class="media-slide"><video class="project-video" autoplay muted loop playsinline><source src="video/projects/file1.mp4" type="video/mp4"></video></div><div class="media-slide"><img src="images/projects/salon-1.jpg" alt="Фото 1"></div><div class="media-slide"><img src="images/projects/salon-2.jpg" alt="Фото 2"></div></div><div class="media-dots"><span class="media-dot active"></span><span class="media-dot"></span><span class="media-dot"></span></div><button class="media-arrow media-prev">←</button><button class="media-arrow media-next">→</button></div></div></div>
 
 <script>
   (function(){
-    // ПРЕЛОАДЕР — только при первом заходе
+    // ПРЕЛОАДЕР
     const PRELOADER_KEY = 'preloader_shown';
     const preloader = document.getElementById('preloader');
-    if (sessionStorage.getItem(PRELOADER_KEY)) {
-      preloader.style.display = 'none';
-    } else {
-      sessionStorage.setItem(PRELOADER_KEY, 'true');
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          preloader.style.opacity = '0';
-          setTimeout(function() { preloader.style.display = 'none'; }, 500);
-        }, 2000);
-      });
-    }
+    if (sessionStorage.getItem(PRELOADER_KEY)) { preloader.style.display = 'none'; }
+    else { sessionStorage.setItem(PRELOADER_KEY, 'true'); window.addEventListener('load', function() { setTimeout(function() { preloader.style.opacity = '0'; setTimeout(function() { preloader.style.display = 'none'; }, 500); }, 2000); }); }
 
     // СКРОЛЛ НАВЕРХ ПРИ ПЕРЕЗАГРУЗКЕ
     window.scrollTo(0, 0);
-    window.addEventListener('beforeunload', function() { window.scrollTo(0, 0); });
+    window.addEventListener('pageshow', function() { window.scrollTo(0, 0); });
 
-    // ПЕЧАТНАЯ МАШИНКА
+    // ПЕЧАТНАЯ МАШИНКА — ЖДЁТ ПОЯВЛЕНИЯ НА ЭКРАНЕ
     const typewriterElement = document.getElementById('typewriterText');
     const text = typewriterElement.textContent;
     typewriterElement.textContent = '';
     typewriterElement.style.width = 'auto';
     let i = 0;
-    function typeWriter() { if (i < text.length) { typewriterElement.textContent += text.charAt(i); i++; setTimeout(typeWriter, 30); } }
-    setTimeout(typeWriter, 500);
+    let typed = false;
+    function typeWriter() { if (i < text.length) { typewriterElement.textContent += text.charAt(i); i++; setTimeout(typeWriter, 50); } }
+    const heroObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting && !typed) { typed = true; typewriterElement.classList.add('typing'); typeWriter(); } }); }, { threshold: 0.5 });
+    heroObserver.observe(document.querySelector('.hero'));
 
     // ТЁМНАЯ ТЕМА
     document.getElementById('themeToggle').addEventListener('click', function() { document.body.classList.toggle('dark-theme'); });
-
-    // КНОПКА НАВЕРХ
     const scrollTop = document.getElementById('scrollTop');
     window.addEventListener('scroll', function() { scrollTop.classList.toggle('visible', window.scrollY > 500); });
     scrollTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
@@ -886,7 +444,7 @@ max-width: 380px {
     const projectsData = [
       { id: 'penthouse', title: 'Ванная комната', author: 'Совместный проект · визуализация', desc: '6 м² современного дизайна', icon: '🏠', baseViews: 1247 },
       { id: 'coffee-brand', title: 'Офис', author: 'Совместный проект · визуализация', desc: 'Планировка и Декор. Практично и современно.', icon: '☕', baseViews: 856 },
-      { id: 'loft-studio', title: 'пусто', author: 'совместный проект', desc: 'Планировка, визуализация и анимация.', icon: '✨', baseViews: 2134 },
+      { id: 'loft-studio', title: 'пусто 78 м²', author: 'совместный проект', desc: 'Планировка, визуализация и анимация.', icon: '✨', baseViews: 2134 },
       { id: 'jewelry-brand', title: 'пусто', author: 'Соня · брендинг', desc: 'Логотип, паттерн, упаковка премиум-класса.', icon: '💎', baseViews: 643 },
       { id: 'country-house', title: 'пусто', author: 'Святослав · 3D-визуализация', desc: 'Экстерьер и интерьер в скандинавском стиле.', icon: '🌲', baseViews: 1532 },
       { id: 'beauty-salon', title: 'пусто', author: 'Соня · дизайн интерьера', desc: 'Концепция и планировка 120 м².', icon: '💆', baseViews: 978 }
@@ -904,17 +462,42 @@ max-width: 380px {
       projectsContainer.appendChild(card);
     });
 
-    // ГАЛЕРЕЯ
-    const largeImages = ['images/rabota1.jpg', 'images/rabota2.jpg', 'images/rabota3.jpg', 'images/rabota4.jpg'];
+    // ГАЛЕРЕЯ СО СТРЕЛКАМИ
+    const largeImages = [
+      { src: 'images/rabota1.jpg', projectId: 'coffee-brand' },
+      { src: 'images/rabota2.jpg', projectId: 'penthouse' },
+      { src: 'images/rabota1.jpg', projectId: 'пусто' },
+      { src: 'images/rabota2.jpg', projectId: 'пусто' }
+    ];
     const largeTrack = document.getElementById('carouselLarge'); largeTrack.innerHTML = '';
     const duplicatedLarge = [...largeImages, ...largeImages, ...largeImages];
-    duplicatedLarge.forEach(src => { const item = document.createElement('div'); item.className = 'carousel-item-large'; const img = document.createElement('img'); img.src = src; img.alt = 'Наша работа'; img.loading = 'lazy'; img.onload = function() { img.classList.add('loaded'); }; item.appendChild(img); largeTrack.appendChild(item); });
-    let currentSet = 0; const totalSets = largeImages.length;
-    function slideToSet(setIndex) { largeTrack.style.transform = `translateX(${-setIndex * window.innerWidth}px)`; document.querySelectorAll('.gallery-dot').forEach((dot, i) => { dot.classList.toggle('active', i === setIndex % totalSets); }); }
-    function nextSlide() { currentSet++; if (currentSet >= largeImages.length * 2) { slideToSet(currentSet); setTimeout(() => { largeTrack.style.transition = 'none'; currentSet = currentSet % largeImages.length; slideToSet(currentSet); setTimeout(() => { largeTrack.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)'; }, 50); }, 1200); } else { slideToSet(currentSet); } }
-    setInterval(nextSlide, 5000); window.addEventListener('resize', () => slideToSet(currentSet % largeImages.length));
+    duplicatedLarge.forEach((item) => {
+      const div = document.createElement('div'); div.className = 'carousel-item-large';
+      div.setAttribute('data-project', item.projectId);
+      const img = document.createElement('img'); img.src = item.src; img.alt = 'Наша работа'; img.loading = 'lazy';
+      img.onload = function() { img.classList.add('loaded'); };
+      div.appendChild(img);
+      div.addEventListener('click', function() {
+        const projectId = this.getAttribute('data-project');
+        const page = document.getElementById(`page-${projectId}`);
+        if (page) { document.body.style.overflow = 'hidden'; page.classList.add('active'); window.history.pushState({ page: 'project' }, ''); }
+      });
+      largeTrack.appendChild(div);
+    });
 
-    // АНИМАЦИЯ + ПАРАЛЛАКС МЫШЬЮ
+    let currentSet = 0; const totalSets = largeImages.length;
+    function slideToSet(setIndex) {
+      currentSet = Math.max(0, Math.min(setIndex, largeImages.length * 2));
+      largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
+      document.querySelectorAll('.gallery-dot').forEach((dot, i) => { dot.classList.toggle('active', i === (currentSet % totalSets)); });
+    }
+    document.getElementById('galleryPrev').addEventListener('click', () => slideToSet(currentSet - 1));
+    document.getElementById('galleryNext').addEventListener('click', () => slideToSet(currentSet + 1));
+    function nextSlide() { slideToSet(currentSet + 1); if (currentSet >= largeImages.length * 2) { setTimeout(() => { largeTrack.style.transition = 'none'; currentSet = currentSet % largeImages.length; slideToSet(currentSet); setTimeout(() => { largeTrack.style.transition = 'transform 0.4s ease'; }, 50); }, 400); } }
+    setInterval(nextSlide, 5000);
+    window.addEventListener('resize', () => slideToSet(currentSet));
+
+    // АНИМАЦИЯ + ПАРАЛЛАКС
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     animatedElements.forEach(el => { if (!el.closest('.hero')) el.classList.remove('visible'); });
     function checkAndAnimate() { animatedElements.forEach(el => { if (el.closest('.hero')) return; const rect = el.getBoundingClientRect(); if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0 && !el.classList.contains('visible')) { el.classList.add('visible'); } }); }
@@ -923,22 +506,30 @@ max-width: 380px {
     setTimeout(checkAndAnimate, 100);
     document.addEventListener('mousemove', (e) => { const cards = document.querySelectorAll('.project-card, .team-card, .step-card'); cards.forEach(card => { const rect = card.getBoundingClientRect(); const centerX = rect.left + rect.width / 2; const centerY = rect.top + rect.height / 2; const deltaX = (e.clientX - centerX) / 30; const deltaY = (e.clientY - centerY) / 30; if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) { card.style.transform = `translateY(-4px) rotateX(${-deltaY}deg) rotateY(${deltaX}deg)`; } }); });
 
-    // FULLSCREEN ВИДЕО
+    // FULLSCREEN
     window.openFullscreenVideo = () => { document.getElementById('fullscreenVideo').classList.add('active'); document.body.style.overflow = 'hidden'; };
     window.closeFullscreenVideo = () => { document.getElementById('fullscreenVideo').classList.remove('active'); document.body.style.overflow = ''; };
 
-    // ПРОЕКТЫ (ОТКРЫТИЕ СТРАНИЦ)
+    // ПРОЕКТЫ
     let scrollPosition = 0;
-    setTimeout(() => { document.querySelectorAll('[data-project]').forEach(card => { card.addEventListener('click', (e) => { e.preventDefault(); scrollPosition = window.scrollY; const page = document.getElementById(`page-${card.dataset.project}`); if (page) { document.body.style.overflow = 'hidden'; page.classList.add('active'); } }); }); }, 100);
-    window.closeProjectPage = () => { document.querySelectorAll('.project-page').forEach(p => p.classList.remove('active')); document.body.style.overflow = ''; setTimeout(() => window.scrollTo({ top: scrollPosition, behavior: 'instant' }), 10); };
+    setTimeout(() => { document.querySelectorAll('[data-project]').forEach(card => { card.addEventListener('click', (e) => { e.preventDefault(); scrollPosition = window.scrollY; const page = document.getElementById(`page-${card.dataset.project}`); if (page) { document.body.style.overflow = 'hidden'; page.classList.add('active'); window.history.pushState({ page: 'project' }, ''); } }); }); }, 100);
+    window.closeProjectPage = () => { document.querySelectorAll('.project-page').forEach(p => p.classList.remove('active')); document.body.style.overflow = ''; setTimeout(() => window.scrollTo({ top: scrollPosition, behavior: 'instant' }), 10); if (window.history.state?.page) window.history.back(); };
+    window.addEventListener('popstate', () => { closeProjectPage(); closeFullscreenVideo(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeProjectPage(); closeFullscreenVideo(); } });
 
-    // КОНТАКТЫ
+    // КОНТАКТЫ И УВЕДОМЛЕНИЕ
+    const toast = document.getElementById('copyToast');
+    window.copyToClipboard = (text) => {
+      navigator.clipboard?.writeText(text).then(() => {
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      }).catch(() => alert('Скопируйте вручную: ' + text));
+    };
     document.querySelectorAll('.contact-item').forEach(item => { item.querySelector('.contact-header').addEventListener('click', () => { document.querySelectorAll('.contact-item').forEach(o => { if (o !== item) o.classList.remove('active'); }); item.classList.toggle('active'); }); });
-    window.copyToClipboard = (text) => { navigator.clipboard?.writeText(text).then(() => alert('Скопировано: ' + text)).catch(() => prompt('Скопируйте вручную:', text)); };
 
-    // СКРЫТИЕ ПЛЕЙСХОЛДЕРОВ ВИДЕО
-    document.querySelectorAll('.project-video').forEach(video => { const placeholder = video.parentElement.querySelector('.video-placeholder'); if (!placeholder) return; if (video.readyState >= 2) { placeholder.style.opacity = '0'; setTimeout(() => placeholder.style.display = 'none', 300); } video.addEventListener('loadeddata', () => { placeholder.style.opacity = '0'; setTimeout(() => placeholder.style.display = 'none', 300); }); });
+    // СЛАЙДЕР В ПРОЕКТАХ
+    function initMediaSlider(sliderId) { const slider = document.getElementById(sliderId); if (!slider) return; const container = slider.closest('.project-media-container'); const slides = slider.querySelectorAll('.media-slide'); const dots = container.querySelectorAll('.media-dot'); const prevBtn = container.querySelector('.media-prev'); const nextBtn = container.querySelector('.media-next'); let currentSlide = 0; function goToSlide(index) { if (index < 0) index = 0; if (index >= slides.length) index = slides.length - 1; currentSlide = index; slider.style.transform = `translateX(-${currentSlide * 100}%)`; dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide)); } prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1)); nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1)); dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i))); }
+    ['slider-penthouse', 'slider-coffee', 'slider-loft', 'slider-jewelry', 'slider-country', 'slider-beauty'].forEach(initMediaSlider);
   })();
 </script>
 
