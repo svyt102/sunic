@@ -577,7 +577,7 @@ let i = 0; let typed = false;
 
 // Определяем скорость: на мобильных медленнее, на десктопе быстрее
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-const typingSpeed = isMobile ? 60 : 30; // 70ms для телефона, 40ms для ноута
+const typingSpeed = isMobile ? 30 : 30; // 70ms для телефона, 40ms для ноута
 
 function typeWriter() { 
   if (i < text.length) { 
