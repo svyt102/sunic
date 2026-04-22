@@ -569,16 +569,31 @@ nt { padding: 0 16px !important; }
     window.scrollTo(0, 0);
     window.addEventListener('pageshow', function() { window.scrollTo(0, 0); });
 
-    // ПЕЧАТНАЯ МАШИНКА — ЖДЁТ ПОЯВЛЕНИЯ НА ЭКРАНЕ
-    const typewriterElement = document.getElementById('typewriterText');
-    const text = typewriterElement.textContent;
-    typewriterElement.textContent = '';
-    typewriterElement.style.width = 'auto';
-    let i = 0;
-    let typed = false;
-    function typeWriter() { if (i < text.length) { typewriterElement.textContent += text.charAt(i); i++; setTimeout(typeWriter, 30); } }
-    const heroObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting && !typed) { typed = true; typewriterElement.classList.add('typing'); typeWriter(); } }); }, { threshold: 0.5 });
-    heroObserver.observe(document.querySelector('.hero'));
+    // ПЕЧАТНАЯ МАШИНКА — разная скорость для мобильных и десктопа
+const typewriterElement = document.getElementById('typewriterText');
+const text = typewriterElement.textContent;
+typewriterElement.textContent = '';
+let i = 0; let typed = false;
+
+// Определяем скорость: на мобильных медленнее, на десктопе быстрее
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+const typingSpeed = isMobile ? 60 : 30; // 70ms для телефона, 40ms для ноута
+
+function typeWriter() { 
+  if (i < text.length) { 
+    typewriterElement.textContent += text.charAt(i); 
+    i++; 
+    setTimeout(typeWriter, typingSpeed);
+  } 
+}
+
+new IntersectionObserver((entries) => { 
+  if (entries[0].isIntersecting && !typed) { 
+    typed = true; 
+    typewriterElement.classList.add('typing'); 
+    typeWriter(); 
+  } 
+}, { threshold: 0.5 }).observe(document.querySelector('.hero'));
 
     // ТЁМНАЯ ТЕМА
     document.getElementById('themeToggle').addEventListener('click', function() { document.body.classList.toggle('dark-theme'); });
