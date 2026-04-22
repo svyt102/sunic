@@ -184,6 +184,9 @@ body.dark-theme .typewriter.typing {
     .gallery-header { position: absolute; top: 80px; left: 0; width: 100%; z-index: 10; text-align: center; pointer-events: none; }
     .gallery-header h2 { color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
     .carousel-large { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 1; }
+    .carousel-large:hover .gallery-arrow {
+  opacity: 1;
+}
     .carousel-track-large { display: flex; transition: transform 0.4s ease; width: fit-content; height: 100vh; }
     .carousel-item-large {
   width: 100vw;
@@ -205,10 +208,48 @@ body.dark-theme .typewriter.typing {
 }
     .carousel-item-large img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.5s; }
     .carousel-item-large img.loaded { opacity: 1; }
-    .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); color: #ffffff; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20; transition: all 0.2s; }
-    .gallery-arrow:hover { background: rgba(0,0,0,0.5); transform: translateY(-50%) scale(1.1); }
-    .gallery-prev { left: 20px; }
-    .gallery-next { right: 20px; }
+    .gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.4s ease, background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  line-height: 1;
+}
+
+.gallery-arrow:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+    gallery-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+  background: rgba(255, 255, 255, 0.4);
+}
+    .gallery-prev {
+  left: 24px;
+}
+
+.gallery-next {
+  right: 24px;
+}
     .gallery-indicators { position: absolute; bottom: 30px; left: 0; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 100 !important; pointer-events: none; }
     .gallery-dot { width: 10px; height: 10px; border-radius: 5px; background: rgba(255, 255, 255, 0.4); transition: all 0.3s; pointer-events: auto; cursor: pointer; }
     .gallery-dot.active { width: 28px; background: #ffffff; }
@@ -347,9 +388,17 @@ body.dark-theme .typewriter.typing {
   
   .theme-toggle, .scroll-top { width: 45px !important; height: 45px !important; bottom: 20px !important; right: 16px !important; }
   .scroll-top { bottom: 80px !important; }
-  .gallery-arrow { opacity: 1 !important; width: 40px !important; height: 40px !important; font-size: 20px !important; background: rgba(0,0,0,0.3) !important; }
-  .gallery-prev { left: 8px !important; }
-  .gallery-next { right: 8px !important; }
+   .gallery-arrow {
+    opacity: 1;
+    width: 48px;
+    height: 48px;
+    font-size: 28px;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px);
+  }
+  .gallery-prev { left: 12px; }
+  .gallery-next { right: 12px; }
+}
   
   .header-contacts { padding: 12px 16px !important; gap: 8px !important; }
   .contact-phone span, .contact-telegram span { display: none !important; }
@@ -491,7 +540,7 @@ nt { padding: 0 16px !important; }
     <div class="carousel-large" id="galleryCarousel">
       <div class="carousel-track-large" id="carouselLarge"></div>
       <button class="gallery-arrow gallery-prev" id="galleryPrev">←</button>
-      <button class="gallery-arrow gallery-next" id="galleryNext">→</button>
+<button class="gallery-arrow gallery-next" id="galleryNext">→</button>
     </div>
     <div class="gallery-indicators" id="galleryIndicators">
       <span class="gallery-dot active"></span><span class="gallery-dot"></span><span class="gallery-dot"></span><span class="gallery-dot"></span>
@@ -623,15 +672,17 @@ new IntersectionObserver((entries) => {
       projectsContainer.appendChild(card);
     });
 
-    // ГАЛЕРЕЯ — ФИКС ЛАГОВ ПРИ КЛИКЕ
+    // ГАЛЕРЕЯ — РАБОТАЕТ БЕЗ ЛАГОВ
 const largeImages = [
   { src: 'images/rabota1.jpg', projectId: 'penthouse' },
   { src: 'images/rabota2.jpg', projectId: 'coffee-brand' },
   { src: 'images/rabota1.jpg', projectId: 'loft-studio' },
   { src: 'images/rabota2.jpg', projectId: 'jewelry-brand' }
 ];
+
 const largeTrack = document.getElementById('carouselLarge');
 largeTrack.innerHTML = '';
+
 const duplicatedLarge = [...largeImages, ...largeImages, ...largeImages];
 duplicatedLarge.forEach((item) => { 
   const div = document.createElement('div'); 
@@ -656,19 +707,69 @@ duplicatedLarge.forEach((item) => {
 
 let currentSet = 0;
 const totalSets = largeImages.length;
-let autoSlideTimer = null;
-let isAnimating = false;
+let autoTimer = null;
+let canSlide = true;
 
-function slideToSet(setIndex) {
-  if (isAnimating) return;
+function slideToSet(index, smooth = true) {
+  if (!canSlide && smooth) return;
   
-  currentSet = Math.max(0, Math.min(setIndex, largeImages.length * 2 - 1));
-  largeTrack.style.transition = 'transform 0.4s ease';
+  canSlide = false;
+  currentSet = Math.max(0, Math.min(index, largeImages.length * 2 - 1));
+  
+  largeTrack.style.transition = smooth ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
   largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
   
   document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
     dot.classList.toggle('active', i === (currentSet % totalSets));
   });
+  
+  if (smooth) {
+    setTimeout(() => { canSlide = true; }, 400);
+  } else {
+    canSlide = true;
+  }
+  
+  resetAutoSlide();
+}
+
+function resetAutoSlide() {
+  if (autoTimer) clearInterval(autoTimer);
+  autoTimer = setInterval(() => {
+    if (canSlide) {
+      slideToSet(currentSet + 1, true);
+    }
+  }, 5000);
+}
+
+largeTrack.addEventListener('transitionend', () => {
+  if (currentSet >= largeImages.length * 2) {
+    slideToSet(currentSet % largeImages.length, false);
+  }
+  canSlide = true;
+});
+
+document.getElementById('galleryPrev').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (canSlide) slideToSet(currentSet - 1, true);
+});
+
+document.getElementById('galleryNext').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (canSlide) slideToSet(currentSet + 1, true);
+});
+
+window.addEventListener('resize', () => {
+  slideToSet(currentSet, false);
+});
+
+// Индикаторы (точки) — клик по ним
+document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    if (canSlide) slideToSet(i + (Math.floor(currentSet / totalSets) * totalSets), true);
+  });
+});
+
+resetAutoSlide();
   
   // Сбрасываем таймер авто-прокрутки
   if (autoSlideTimer) {
