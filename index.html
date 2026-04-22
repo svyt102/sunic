@@ -479,39 +479,117 @@
       projectsContainer.appendChild(card);
     });
 
-    // ГАЛЕРЕЯ — ЧИСТАЯ И РАБОЧАЯ
-    const largeImages = [
-      { src: 'images/rabota1.jpg', projectId: 'penthouse' },
-      { src: 'images/rabota2.jpg', projectId: 'coffee-brand' },
-      { src: 'images/rabota1.jpg', projectId: 'loft-studio' },
-      { src: 'images/rabota2.jpg', projectId: 'jewelry-brand' }
-    ];
-    const largeTrack = document.getElementById('carouselLarge');
-    largeTrack.innerHTML = '';
-    const duplicatedLarge = [...largeImages, ...largeImages, ...largeImages];
-    duplicatedLarge.forEach((item) => { 
-      const div = document.createElement('div'); div.className = 'carousel-item-large'; div.setAttribute('data-project', item.projectId);
-      const img = document.createElement('img'); img.src = item.src; img.alt = 'Наша работа'; img.loading = 'lazy'; img.onload = () => img.classList.add('loaded');
-      div.appendChild(img); div.addEventListener('click', () => { const page = document.getElementById(`page-${item.projectId}`); if (page) { document.body.style.overflow = 'hidden'; page.classList.add('active'); window.history.pushState({ page: 'project' }, ''); } });
-      largeTrack.appendChild(div); 
-    });
-    let currentSet = 0; const totalSets = largeImages.length; let autoTimer = null; let canSlide = true;
-    function slideToSet(index, smooth = true) {
-      if (!canSlide && smooth) return;
-      canSlide = false; currentSet = Math.max(0, Math.min(index, largeImages.length * 2 - 1));
-      largeTrack.style.transition = smooth ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
-      largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
-      document.querySelectorAll('.gallery-dot').forEach((dot, i) => { dot.classList.toggle('active', i === (currentSet % totalSets)); });
-      if (smooth) { setTimeout(() => { canSlide = true; }, 400); } else { canSlide = true; }
-      resetAutoSlide();
+    // ГАЛЕРЕЯ — БЕСКОНЕЧНАЯ ЛЕНТА
+const largeImages = [
+  { src: 'images/rabota1.jpg', projectId: 'penthouse' },
+  { src: 'images/rabota2.jpg', projectId: 'coffee-brand' },
+  { src: 'images/rabota1.jpg', projectId: 'loft-studio' },
+  { src: 'images/rabota2.jpg', projectId: 'jewelry-brand' }
+];
+
+const largeTrack = document.getElementById('carouselLarge');
+largeTrack.innerHTML = '';
+
+// Создаём 5 копий для бесконечности
+const duplicatedLarge = [...largeImages, ...largeImages, ...largeImages, ...largeImages, ...largeImages];
+duplicatedLarge.forEach((item) => { 
+  const div = document.createElement('div'); 
+  div.className = 'carousel-item-large'; 
+  div.setAttribute('data-project', item.projectId);
+  const img = document.createElement('img'); 
+  img.src = item.src; 
+  img.alt = 'Наша работа'; 
+  img.loading = 'lazy'; 
+  img.onload = () => img.classList.add('loaded');
+  div.appendChild(img); 
+  div.addEventListener('click', () => { 
+    const page = document.getElementById(`page-${item.projectId}`);
+    if (page) { 
+      document.body.style.overflow = 'hidden'; 
+      page.classList.add('active'); 
+      window.history.pushState({ page: 'project' }, ''); 
+    } 
+  });
+  largeTrack.appendChild(div); 
+});
+
+let currentSet = 2 * largeImages.length; // Начинаем с середины, чтобы можно было листать в обе стороны
+const totalSets = largeImages.length;
+let autoTimer = null;
+let canSlide = true;
+
+function slideToSet(index, smooth = true) {
+  if (!canSlide && smooth) return;
+  
+  canSlide = false;
+  currentSet = index;
+  
+  largeTrack.style.transition = smooth ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+  largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
+  
+  document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === (currentSet % totalSets));
+  });
+  
+  if (smooth) {
+    setTimeout(() => { canSlide = true; }, 400);
+  } else {
+    canSlide = true;
+  }
+  
+  resetAutoSlide();
+}
+
+function resetAutoSlide() {
+  if (autoTimer) clearInterval(autoTimer);
+  autoTimer = setInterval(() => {
+    if (canSlide) {
+      slideToSet(currentSet + 1, true);
     }
-    function resetAutoSlide() { if (autoTimer) clearInterval(autoTimer); autoTimer = setInterval(() => { if (canSlide) slideToSet(currentSet + 1, true); }, 5000); }
-    largeTrack.addEventListener('transitionend', () => { if (currentSet >= largeImages.length * 2) { slideToSet(currentSet % largeImages.length, false); } canSlide = true; });
-    document.getElementById('galleryPrev').addEventListener('click', (e) => { e.preventDefault(); if (canSlide) slideToSet(currentSet - 1, true); });
-    document.getElementById('galleryNext').addEventListener('click', (e) => { e.preventDefault(); if (canSlide) slideToSet(currentSet + 1, true); });
-    window.addEventListener('resize', () => { slideToSet(currentSet, false); });
-    document.querySelectorAll('.gallery-dot').forEach((dot, i) => { dot.addEventListener('click', () => { if (canSlide) slideToSet(i + (Math.floor(currentSet / totalSets) * totalSets), true); }); });
-    resetAutoSlide();
+  }, 5000);
+}
+
+largeTrack.addEventListener('transitionend', () => {
+  // Если дошли до края — телепортируемся в середину без анимации
+  if (currentSet >= largeImages.length * 4) {
+    largeTrack.style.transition = 'none';
+    currentSet = 2 * largeImages.length;
+    largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
+    setTimeout(() => { largeTrack.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'; }, 20);
+  } else if (currentSet < largeImages.length) {
+    largeTrack.style.transition = 'none';
+    currentSet = 3 * largeImages.length;
+    largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
+    setTimeout(() => { largeTrack.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'; }, 20);
+  }
+  canSlide = true;
+});
+
+document.getElementById('galleryPrev').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (canSlide) slideToSet(currentSet - 1, true);
+});
+
+document.getElementById('galleryNext').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (canSlide) slideToSet(currentSet + 1, true);
+});
+
+window.addEventListener('resize', () => {
+  slideToSet(currentSet, false);
+});
+
+document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    if (canSlide) {
+      // Находим ближайший слайд с нужным индексом
+      const targetSet = (Math.floor(currentSet / totalSets) * totalSets) + i;
+      slideToSet(targetSet, true);
+    }
+  });
+});
+
+resetAutoSlide();
 
     // АНИМАЦИЯ + ПАРАЛЛАКС
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
