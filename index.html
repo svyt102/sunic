@@ -81,70 +81,17 @@
     .hero-video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
     .hero-video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.85); z-index: 2; }
-   .hero-content {
-  position: relative;
-  z-index: 10;
-  max-width: 900px;
-  width: 100%;
-  padding: 0 24px;
-  text-align: center;
-  margin: 0 auto;
-}
-
-.hero-content h1,
-.hero-content p {
-  color: #1d1d1f;
-  position: relative;
-  z-index: 10;
-}
-
-body.dark-theme .hero-content h1,
-body.dark-theme .hero-content p {
-  color: #ffffff;
-}
-
-.typewriter-wrapper {
-  display: inline-block;
-}
-
-.typewriter {
-  overflow: hidden;
-  border-right: 2px solid #1d1d1f;
-  white-space: nowrap;
-  margin: 0 auto;
-  letter-spacing: normal;
-  width: 0;
-  font-size: clamp(3rem, 10vw, 4.5rem);
-  font-weight: 600;
-  line-height: 1.05;
-}
-
-.typewriter.typing {
-  animation: typing 2.5s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
-}
-
-body.dark-theme .typewriter {
-  border-right-color: #ffffff;
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent; }
-  50% { border-color: #1d1d1f; }
-}
-
-body.dark-theme .typewriter.typing {
-  animation: typing 2.5s steps(30, end) forwards, blink-caret-dark 0.75s step-end infinite;
-}
-
-@keyframes blink-caret-dark {
-  from, to { border-color: transparent; }
-  50% { border-color: #ffffff; }
-}
+    .hero-content { position: relative; z-index: 10; max-width: 900px; width: 100%; padding: 0 24px; text-align: center; margin: 0 auto; }
+    .hero-content h1, .hero-content p { color: #1d1d1f; position: relative; z-index: 10; }
+    body.dark-theme .hero-content h1, body.dark-theme .hero-content p { color: #ffffff; }
+    .typewriter-wrapper { display: inline-block; }
+    .typewriter { overflow: hidden; border-right: 2px solid #1d1d1f; white-space: nowrap; margin: 0 auto; letter-spacing: normal; width: 0; font-size: clamp(3rem, 10vw, 4.5rem); font-weight: 600; line-height: 1.05; }
+    .typewriter.typing { animation: typing 2.5s steps(30, end) forwards, blink-caret 0.75s step-end infinite; }
+    body.dark-theme .typewriter { border-right-color: #ffffff; }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: #1d1d1f; } }
+    body.dark-theme .typewriter.typing { animation: typing 2.5s steps(30, end) forwards, blink-caret-dark 0.75s step-end infinite; }
+    @keyframes blink-caret-dark { from, to { border-color: transparent; } 50% { border-color: #ffffff; } }
     .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px; }
     .team-card { padding: 40px 28px; border-radius: 28px; transition: transform 0.3s, box-shadow 0.3s; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.7); }
     .section-white .team-card, .section-gray .team-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
@@ -184,72 +131,22 @@ body.dark-theme .typewriter.typing {
     .gallery-header { position: absolute; top: 80px; left: 0; width: 100%; z-index: 10; text-align: center; pointer-events: none; }
     .gallery-header h2 { color: #ffffff; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
     .carousel-large { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 1; }
-    .carousel-large:hover .gallery-arrow {
-  opacity: 1;
-}
-    .carousel-track-large { display: flex; transition: transform 0.4s ease; width: fit-content; height: 100vh; }
-    .carousel-item-large {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.carousel-item-large:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 30px rgba(0,0,0,0.3);
-  z-index: 5;
-}
-
-.carousel-item-large:active {
-  transform: scale(0.98);
-}
+    .carousel-large:hover .gallery-control { opacity: 1; pointer-events: auto; }
+    .carousel-track-large { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); width: fit-content; height: 100vh; }
+    .carousel-item-large { width: 100vw; height: 100vh; overflow: hidden; flex-shrink: 0; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .carousel-item-large:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0,0,0,0.3); z-index: 5; }
+    .carousel-item-large:active { transform: scale(0.98); }
     .carousel-item-large img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.5s; }
     .carousel-item-large img.loaded { opacity: 1; }
-    .gallery-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #ffffff;
-  font-size: 32px;
-  font-weight: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 20;
-  opacity: 0;
-  transition: opacity 0.4s ease, background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  user-select: none;
-  line-height: 1;
-}
 
-.gallery-arrow:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-50%) scale(1.05);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-    gallery-arrow:active {
-  transform: translateY(-50%) scale(0.95);
-  background: rgba(255, 255, 255, 0.4);
-}
-    .gallery-prev {
-  left: 24px;
-}
+    /* СОВРЕМЕННЫЕ СТРЕЛКИ */
+    .gallery-control { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); color: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20; opacity: 0; transition: opacity 0.3s ease, transform 0.2s ease, background 0.2s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); pointer-events: none; }
+    .gallery-control:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-50%) scale(1.05); }
+    .gallery-control:active { transform: translateY(-50%) scale(0.95); background: rgba(255, 255, 255, 0.3); }
+    .gallery-prev { left: 20px; }
+    .gallery-next { right: 20px; }
+    .gallery-control svg { width: 24px; height: 24px; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); }
 
-.gallery-next {
-  right: 24px;
-}
     .gallery-indicators { position: absolute; bottom: 30px; left: 0; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 100 !important; pointer-events: none; }
     .gallery-dot { width: 10px; height: 10px; border-radius: 5px; background: rgba(255, 255, 255, 0.4); transition: all 0.3s; pointer-events: auto; cursor: pointer; }
     .gallery-dot.active { width: 28px; background: #ffffff; }
@@ -300,128 +197,46 @@ body.dark-theme .typewriter.typing {
     .section-white footer, .section-gray footer { color: #86868b; border-color: #e8e8ed; }
     .section-black footer { color: #a1a1a6; border-color: #2a2a2c; }
 
-   @media screen and (max-width: 768px) {
-  * { max-width: 100vw !important; }
-  html, body { overflow-x: hidden !important; width: 100% !important; position: relative !important; }
-  section { padding: 40px 0 !important; width: 100% !important; overflow-x: hidden !important; }
-  h1 { font-size: 2rem !important; word-break: break-word !important; }
-  h2 { font-size: 1.8rem !important; }
-  
-  .hero {
-    min-height: 100vh !important;
-    height: auto !important;
-    padding: 0 !important;
-    width: 100% !important;
-    position: relative !important;
-  }
-  
-  .hero-video-wrapper {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    z-index: 1 !important;
-  }
-  
-  .hero-overlay {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: rgba(255, 255, 255, 0.85) !important;
-    z-index: 2 !important;
-  }
-  
-  body.dark-theme .hero-overlay {
-    background: rgba(0, 0, 0, 0.5) !important;
-  }
-  
-  .hero-content {
-    position: relative !important;
-    z-index: 10 !important;
-    padding: 0 16px !important;
-    width: 100% !important;
-    text-align: center !important;
-    left: 0 !important;
-    transform: none !important;
-  }
-  
-  .hero-content h1, .hero-content p {
-    color: #1d1d1f !important;
-    text-shadow: none !important;
-  }
-  
-  body.dark-theme .hero-content h1,
-  body.dark-theme .hero-content p {
-    color: #ffffff !important;
-  }
-  
-  .hero-content .typewriter {
-    white-space: nowrap !important;
-    font-size: 1.8rem !important;
-    display: inline-block !important;
-    border-right: 2px solid #1d1d1f !important;
-  }
-  
-  body.dark-theme .hero-content .typewriter {
-    border-right-color: #ffffff !important;
-  }
-  
-  .hero-subhead {
-    font-size: 1rem !important;
-    padding: 0 10px !important;
-  }
-  
-  .container { padding: 0 16px !important; width: 100% !important; }
-  .team-grid, .steps-grid, .testimonials-grid, .projects-grid { display: block !important; width: 100% !important; }
-  .team-card, .step-card, .testimonial-card, .project-card { width: 100% !important; margin: 0 0 20px 0 !important; padding: 24px 20px !important; }
-  
-  .gallery-section { height: 100vh !important; width: 100% !important; overflow: hidden !important; }
-  .gallery-container { width: 100% !important; overflow: hidden !important; }
-  .carousel-large { width: 100% !important; overflow: hidden !important; }
-  .carousel-item-large { width: 100vw !important; height: 100vh !important; overflow: hidden !important; }
-  .carousel-item-large img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
-  .gallery-header { top: 50px !important; padding: 0 16px !important; }
-  .gallery-header h2 { font-size: 1.8rem !important; }
-  
-  .theme-toggle, .scroll-top { width: 45px !important; height: 45px !important; bottom: 20px !important; right: 16px !important; }
-  .scroll-top { bottom: 80px !important; }
-   .gallery-arrow {
-    opacity: 1;
-    width: 48px;
-    height: 48px;
-    font-size: 28px;
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(15px);
-  }
-  .gallery-prev { left: 12px; }
-  .gallery-next { right: 12px; }
-}
-  
-  .header-contacts { padding: 12px 16px !important; gap: 8px !important; }
-  .contact-phone span, .contact-telegram span { display: none !important; }
-  .contact-phone, .contact-telegram { padding: 10px !important; border-radius: 30px !important; }
-  
-  p, .project-desc, .hero-subhead, .step-desc, .testimonial-text { font-size: 0.95rem !important; word-wrap: break-word !important; }
-  .search-container { width: 100% !important; padding: 0 !important; }
-  .search-input { width: 100% !important; font-size: 16px !important; }
-  .contact-form { width: 100% !important; padding: 0 !important; }
-  .contact-form input, .contact-form textarea { font-size: 16px !important; }
-  .project-media-container { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
-  .project-page
-
-
-nt { padding: 0 16px !important; }
-  
-  section, .container, .gallery-container, .carousel-large, .hero, .hero-content {
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-  }
-  
-  img, video { max-width: 100% !important; }
-}
+    @media screen and (max-width: 768px) {
+      * { max-width: 100vw !important; }
+      html, body { overflow-x: hidden !important; width: 100% !important; position: relative !important; }
+      section { padding: 40px 0 !important; width: 100% !important; overflow-x: hidden !important; }
+      h1 { font-size: 2rem !important; word-break: break-word !important; }
+      h2 { font-size: 1.8rem !important; }
+      .hero { min-height: 100vh !important; height: auto !important; padding: 0 !important; width: 100% !important; position: relative !important; }
+      .hero-video-wrapper { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important; }
+      .hero-overlay { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: rgba(255, 255, 255, 0.85) !important; z-index: 2 !important; }
+      body.dark-theme .hero-overlay { background: rgba(0, 0, 0, 0.5) !important; }
+      .hero-content { position: relative !important; z-index: 10 !important; padding: 0 16px !important; width: 100% !important; text-align: center !important; left: 0 !important; transform: none !important; }
+      .hero-content h1, .hero-content p { color: #1d1d1f !important; text-shadow: none !important; }
+      body.dark-theme .hero-content h1, body.dark-theme .hero-content p { color: #ffffff !important; }
+      .hero-content .typewriter { white-space: nowrap !important; font-size: 1.8rem !important; display: inline-block !important; border-right: 2px solid #1d1d1f !important; }
+      body.dark-theme .hero-content .typewriter { border-right-color: #ffffff !important; }
+      .hero-subhead { font-size: 1rem !important; padding: 0 10px !important; }
+      .container { padding: 0 16px !important; width: 100% !important; }
+      .team-grid, .steps-grid, .testimonials-grid, .projects-grid { display: block !important; width: 100% !important; }
+      .team-card, .step-card, .testimonial-card, .project-card { width: 100% !important; margin: 0 0 20px 0 !important; padding: 24px 20px !important; }
+      .gallery-section { height: 100vh !important; width: 100% !important; overflow: hidden !important; }
+      .gallery-container { width: 100% !important; overflow: hidden !important; }
+      .carousel-large { width: 100% !important; overflow: hidden !important; }
+      .carousel-item-large { width: 100vw !important; height: 100vh !important; overflow: hidden !important; }
+      .carousel-item-large img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+      .gallery-header { top: 50px !important; padding: 0 16px !important; }
+      .gallery-header h2 { font-size: 1.8rem !important; }
+      .theme-toggle, .scroll-top { width: 45px !important; height: 45px !important; bottom: 20px !important; right: 16px !important; }
+      .scroll-top { bottom: 80px !important; }
+      .gallery-control { opacity: 1 !important; pointer-events: auto !important; width: 44px; height: 44px; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(8px); }
+      .gallery-prev { left: 12px; }
+      .gallery-next { right: 12px; }
+      .header-contacts { padding: 12px 16px !important; gap: 8px !important; }
+      .contact-phone span, .contact-telegram span { display: none !important; }
+      .contact-phone, .contact-telegram { padding: 10px !important; border-radius: 30px !important; }
+      p, .project-desc, .hero-subhead, .step-desc, .testimonial-text { font-size: 0.95rem !important; word-wrap: break-word !important; }
+      .project-media-container { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
+      .project-page-content { padding: 0 16px !important; }
+      section, .container, .gallery-container, .carousel-large, .hero, .hero-content { max-width: 100vw !important; overflow-x: hidden !important; }
+      img, video { max-width: 100% !important; }
+    }
   </style>
 </head>
 <body>
@@ -539,8 +354,16 @@ nt { padding: 0 16px !important; }
     <div class="gallery-header"><h2 class="animate-on-scroll">наши работы</h2></div>
     <div class="carousel-large" id="galleryCarousel">
       <div class="carousel-track-large" id="carouselLarge"></div>
-      <button class="gallery-arrow gallery-prev" id="galleryPrev">←</button>
-<button class="gallery-arrow gallery-next" id="galleryNext">→</button>
+      <div class="gallery-control gallery-prev" id="galleryPrev">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </div>
+      <div class="gallery-control gallery-next" id="galleryNext">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </div>
     </div>
     <div class="gallery-indicators" id="galleryIndicators">
       <span class="gallery-dot active"></span><span class="gallery-dot"></span><span class="gallery-dot"></span><span class="gallery-dot"></span>
@@ -618,31 +441,15 @@ nt { padding: 0 16px !important; }
     window.scrollTo(0, 0);
     window.addEventListener('pageshow', function() { window.scrollTo(0, 0); });
 
-    // ПЕЧАТНАЯ МАШИНКА — разная скорость для мобильных и десктопа
-const typewriterElement = document.getElementById('typewriterText');
-const text = typewriterElement.textContent;
-typewriterElement.textContent = '';
-let i = 0; let typed = false;
-
-// Определяем скорость: на мобильных медленнее, на десктопе быстрее
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-const typingSpeed = isMobile ? 30 : 30; // 70ms для телефона, 40ms для ноута
-
-function typeWriter() { 
-  if (i < text.length) { 
-    typewriterElement.textContent += text.charAt(i); 
-    i++; 
-    setTimeout(typeWriter, typingSpeed);
-  } 
-}
-
-new IntersectionObserver((entries) => { 
-  if (entries[0].isIntersecting && !typed) { 
-    typed = true; 
-    typewriterElement.classList.add('typing'); 
-    typeWriter(); 
-  } 
-}, { threshold: 0.5 }).observe(document.querySelector('.hero'));
+    // ПЕЧАТНАЯ МАШИНКА
+    const typewriterElement = document.getElementById('typewriterText');
+    const text = typewriterElement.textContent;
+    typewriterElement.textContent = '';
+    let i = 0; let typed = false;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    const typingSpeed = isMobile ? 30 : 30;
+    function typeWriter() { if (i < text.length) { typewriterElement.textContent += text.charAt(i); i++; setTimeout(typeWriter, typingSpeed); } }
+    new IntersectionObserver((entries) => { if (entries[0].isIntersecting && !typed) { typed = true; typewriterElement.classList.add('typing'); typeWriter(); } }, { threshold: 0.5 }).observe(document.querySelector('.hero'));
 
     // ТЁМНАЯ ТЕМА
     document.getElementById('themeToggle').addEventListener('click', function() { document.body.classList.toggle('dark-theme'); });
@@ -654,10 +461,10 @@ new IntersectionObserver((entries) => {
     const projectsData = [
       { id: 'penthouse', title: 'Ванная комната', author: 'Совместный проект · визуализация', desc: '6 м² современного дизайна', icon: '🏠', baseViews: 1247 },
       { id: 'coffee-brand', title: 'Офис', author: 'Совместный проект · визуализация', desc: 'Планировка и Декор. Практично и современно.', icon: '☕', baseViews: 856 },
-      { id: 'loft-studio', title: 'пусто 78 м²', author: 'совместный проект', desc: 'Планировка, визуализация и анимация.', icon: '✨', baseViews: 2134 },
-      { id: 'jewelry-brand', title: 'пусто', author: 'Соня · брендинг', desc: 'Логотип, паттерн, упаковка премиум-класса.', icon: '💎', baseViews: 643 },
-      { id: 'country-house', title: 'пусто', author: 'Святослав · 3D-визуализация', desc: 'Экстерьер и интерьер в скандинавском стиле.', icon: '🌲', baseViews: 1532 },
-      { id: 'beauty-salon', title: 'пусто', author: 'Соня · дизайн интерьера', desc: 'Концепция и планировка 120 м².', icon: '💆', baseViews: 978 }
+      { id: 'loft-studio', title: 'Лофт-студия 78 м²', author: 'совместный проект', desc: 'Планировка, визуализация и анимация.', icon: '✨', baseViews: 2134 },
+      { id: 'jewelry-brand', title: 'AURUM', author: 'Соня · брендинг', desc: 'Логотип, паттерн, упаковка премиум-класса.', icon: '💎', baseViews: 643 },
+      { id: 'country-house', title: 'Загородный дом', author: 'Святослав · 3D-визуализация', desc: 'Экстерьер и интерьер в скандинавском стиле.', icon: '🌲', baseViews: 1532 },
+      { id: 'beauty-salon', title: 'BOTANICA', author: 'Соня · дизайн интерьера', desc: 'Концепция и планировка 120 м².', icon: '💆', baseViews: 978 }
     ];
     let views = JSON.parse(localStorage.getItem('projectViews')) || {};
     if (Object.keys(views).length === 0) { projectsData.forEach(p => { views[p.id] = p.baseViews; }); localStorage.setItem('projectViews', JSON.stringify(views)); }
@@ -672,162 +479,39 @@ new IntersectionObserver((entries) => {
       projectsContainer.appendChild(card);
     });
 
-    // ГАЛЕРЕЯ — РАБОТАЕТ БЕЗ ЛАГОВ
-const largeImages = [
-  { src: 'images/rabota1.jpg', projectId: 'penthouse' },
-  { src: 'images/rabota2.jpg', projectId: 'coffee-brand' },
-  { src: 'images/rabota1.jpg', projectId: 'loft-studio' },
-  { src: 'images/rabota2.jpg', projectId: 'jewelry-brand' }
-];
-
-const largeTrack = document.getElementById('carouselLarge');
-largeTrack.innerHTML = '';
-
-const duplicatedLarge = [...largeImages, ...largeImages, ...largeImages];
-duplicatedLarge.forEach((item) => { 
-  const div = document.createElement('div'); 
-  div.className = 'carousel-item-large'; 
-  div.setAttribute('data-project', item.projectId);
-  const img = document.createElement('img'); 
-  img.src = item.src; 
-  img.alt = 'Наша работа'; 
-  img.loading = 'lazy'; 
-  img.onload = () => img.classList.add('loaded');
-  div.appendChild(img); 
-  div.addEventListener('click', () => { 
-    const page = document.getElementById(`page-${item.projectId}`);
-    if (page) { 
-      document.body.style.overflow = 'hidden'; 
-      page.classList.add('active'); 
-      window.history.pushState({ page: 'project' }, ''); 
-    } 
-  });
-  largeTrack.appendChild(div); 
-});
-
-let currentSet = 0;
-const totalSets = largeImages.length;
-let autoTimer = null;
-let canSlide = true;
-
-function slideToSet(index, smooth = true) {
-  if (!canSlide && smooth) return;
-  
-  canSlide = false;
-  currentSet = Math.max(0, Math.min(index, largeImages.length * 2 - 1));
-  
-  largeTrack.style.transition = smooth ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
-  largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
-  
-  document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === (currentSet % totalSets));
-  });
-  
-  if (smooth) {
-    setTimeout(() => { canSlide = true; }, 400);
-  } else {
-    canSlide = true;
-  }
-  
-  resetAutoSlide();
-}
-
-function resetAutoSlide() {
-  if (autoTimer) clearInterval(autoTimer);
-  autoTimer = setInterval(() => {
-    if (canSlide) {
-      slideToSet(currentSet + 1, true);
+    // ГАЛЕРЕЯ — ЧИСТАЯ И РАБОЧАЯ
+    const largeImages = [
+      { src: 'images/rabota1.jpg', projectId: 'penthouse' },
+      { src: 'images/rabota2.jpg', projectId: 'coffee-brand' },
+      { src: 'images/rabota1.jpg', projectId: 'loft-studio' },
+      { src: 'images/rabota2.jpg', projectId: 'jewelry-brand' }
+    ];
+    const largeTrack = document.getElementById('carouselLarge');
+    largeTrack.innerHTML = '';
+    const duplicatedLarge = [...largeImages, ...largeImages, ...largeImages];
+    duplicatedLarge.forEach((item) => { 
+      const div = document.createElement('div'); div.className = 'carousel-item-large'; div.setAttribute('data-project', item.projectId);
+      const img = document.createElement('img'); img.src = item.src; img.alt = 'Наша работа'; img.loading = 'lazy'; img.onload = () => img.classList.add('loaded');
+      div.appendChild(img); div.addEventListener('click', () => { const page = document.getElementById(`page-${item.projectId}`); if (page) { document.body.style.overflow = 'hidden'; page.classList.add('active'); window.history.pushState({ page: 'project' }, ''); } });
+      largeTrack.appendChild(div); 
+    });
+    let currentSet = 0; const totalSets = largeImages.length; let autoTimer = null; let canSlide = true;
+    function slideToSet(index, smooth = true) {
+      if (!canSlide && smooth) return;
+      canSlide = false; currentSet = Math.max(0, Math.min(index, largeImages.length * 2 - 1));
+      largeTrack.style.transition = smooth ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+      largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
+      document.querySelectorAll('.gallery-dot').forEach((dot, i) => { dot.classList.toggle('active', i === (currentSet % totalSets)); });
+      if (smooth) { setTimeout(() => { canSlide = true; }, 400); } else { canSlide = true; }
+      resetAutoSlide();
     }
-  }, 5000);
-}
-
-largeTrack.addEventListener('transitionend', () => {
-  if (currentSet >= largeImages.length * 2) {
-    slideToSet(currentSet % largeImages.length, false);
-  }
-  canSlide = true;
-});
-
-document.getElementById('galleryPrev').addEventListener('click', (e) => {
-  e.preventDefault();
-  if (canSlide) slideToSet(currentSet - 1, true);
-});
-
-document.getElementById('galleryNext').addEventListener('click', (e) => {
-  e.preventDefault();
-  if (canSlide) slideToSet(currentSet + 1, true);
-});
-
-window.addEventListener('resize', () => {
-  slideToSet(currentSet, false);
-});
-
-// Индикаторы (точки) — клик по ним
-document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
-  dot.addEventListener('click', () => {
-    if (canSlide) slideToSet(i + (Math.floor(currentSet / totalSets) * totalSets), true);
-  });
-});
-
-resetAutoSlide();
-  
-  // Сбрасываем таймер авто-прокрутки
-  if (autoSlideTimer) {
-    clearInterval(autoSlideTimer);
-    autoSlideTimer = null;
-  }
-  startAutoSlide();
-}
-
-function startAutoSlide() {
-  if (autoSlideTimer) clearInterval(autoSlideTimer);
-  autoSlideTimer = setInterval(() => {
-    if (!isAnimating) {
-      slideToSet(currentSet + 1);
-    }
-  }, 5000);
-}
-
-// Обработчики для стрелок — без лагов
-document.getElementById('galleryPrev').addEventListener('click', function(e) {
-  e.preventDefault();
-  if (!isAnimating) {
-    isAnimating = true;
-    slideToSet(currentSet - 1);
-    setTimeout(() => { isAnimating = false; }, 400);
-  }
-});
-
-document.getElementById('galleryNext').addEventListener('click', function(e) {
-  e.preventDefault();
-  if (!isAnimating) {
-    isAnimating = true;
-    slideToSet(currentSet + 1);
-    setTimeout(() => { isAnimating = false; }, 400);
-  }
-});
-
-// Обработчик окончания анимации
-largeTrack.addEventListener('transitionend', function() {
-  isAnimating = false;
-  // Если дошли до края — перепрыгиваем без анимации
-  if (currentSet >= largeImages.length * 2) {
-    largeTrack.style.transition = 'none';
-    currentSet = currentSet % largeImages.length;
-    largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
-    setTimeout(() => { largeTrack.style.transition = 'transform 0.4s ease'; }, 50);
-  }
-});
-
-// Обработчик ресайза
-window.addEventListener('resize', () => {
-  largeTrack.style.transition = 'none';
-  largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
-  setTimeout(() => { largeTrack.style.transition = 'transform 0.4s ease'; }, 50);
-});
-
-// Запускаем авто-прокрутку
-startAutoSlide();
+    function resetAutoSlide() { if (autoTimer) clearInterval(autoTimer); autoTimer = setInterval(() => { if (canSlide) slideToSet(currentSet + 1, true); }, 5000); }
+    largeTrack.addEventListener('transitionend', () => { if (currentSet >= largeImages.length * 2) { slideToSet(currentSet % largeImages.length, false); } canSlide = true; });
+    document.getElementById('galleryPrev').addEventListener('click', (e) => { e.preventDefault(); if (canSlide) slideToSet(currentSet - 1, true); });
+    document.getElementById('galleryNext').addEventListener('click', (e) => { e.preventDefault(); if (canSlide) slideToSet(currentSet + 1, true); });
+    window.addEventListener('resize', () => { slideToSet(currentSet, false); });
+    document.querySelectorAll('.gallery-dot').forEach((dot, i) => { dot.addEventListener('click', () => { if (canSlide) slideToSet(i + (Math.floor(currentSet / totalSets) * totalSets), true); }); });
+    resetAutoSlide();
 
     // АНИМАЦИЯ + ПАРАЛЛАКС
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
@@ -849,14 +533,9 @@ startAutoSlide();
     window.addEventListener('popstate', () => { closeProjectPage(); closeFullscreenVideo(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeProjectPage(); closeFullscreenVideo(); } });
 
-    // КОНТАКТЫ И УВЕДОМЛЕНИЕ
+    // КОНТАКТЫ
     const toast = document.getElementById('copyToast');
-    window.copyToClipboard = (text) => {
-      navigator.clipboard?.writeText(text).then(() => {
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-      }).catch(() => alert('Скопируйте вручную: ' + text));
-    };
+    window.copyToClipboard = (text) => { navigator.clipboard?.writeText(text).then(() => { toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2000); }).catch(() => alert('Скопируйте вручную: ' + text)); };
     document.querySelectorAll('.contact-item').forEach(item => { item.querySelector('.contact-header').addEventListener('click', () => { document.querySelectorAll('.contact-item').forEach(o => { if (o !== item) o.classList.remove('active'); }); item.classList.toggle('active'); }); });
 
     // СЛАЙДЕР В ПРОЕКТАХ
