@@ -623,40 +623,110 @@ new IntersectionObserver((entries) => {
       projectsContainer.appendChild(card);
     });
 
-    // ГАЛЕРЕЯ СО СТРЕЛКАМИ
-    const largeImages = [
-      { src: 'images/rabota1.jpg', projectId: 'coffee-brand' },
-      { src: 'images/rabota2.jpg', projectId: 'penthouse' },
-      { src: 'images/rabota1.jpg', projectId: 'пусто' },
-      { src: 'images/rabota2.jpg', projectId: 'пусто' }
-    ];
-    const largeTrack = document.getElementById('carouselLarge'); largeTrack.innerHTML = '';
-    const duplicatedLarge = [...largeImages, ...largeImages, ...largeImages];
-    duplicatedLarge.forEach((item) => {
-      const div = document.createElement('div'); div.className = 'carousel-item-large';
-      div.setAttribute('data-project', item.projectId);
-      const img = document.createElement('img'); img.src = item.src; img.alt = 'Наша работа'; img.loading = 'lazy';
-      img.onload = function() { img.classList.add('loaded'); };
-      div.appendChild(img);
-      div.addEventListener('click', function() {
-        const projectId = this.getAttribute('data-project');
-        const page = document.getElementById(`page-${projectId}`);
-        if (page) { document.body.style.overflow = 'hidden'; page.classList.add('active'); window.history.pushState({ page: 'project' }, ''); }
-      });
-      largeTrack.appendChild(div);
-    });
+    // ГАЛЕРЕЯ — ФИКС ЛАГОВ ПРИ КЛИКЕ
+const largeImages = [
+  { src: 'images/rabota1.jpg', projectId: 'penthouse' },
+  { src: 'images/rabota2.jpg', projectId: 'coffee-brand' },
+  { src: 'images/rabota1.jpg', projectId: 'loft-studio' },
+  { src: 'images/rabota2.jpg', projectId: 'jewelry-brand' }
+];
+const largeTrack = document.getElementById('carouselLarge');
+largeTrack.innerHTML = '';
+const duplicatedLarge = [...largeImages, ...largeImages, ...largeImages];
+duplicatedLarge.forEach((item) => { 
+  const div = document.createElement('div'); 
+  div.className = 'carousel-item-large'; 
+  div.setAttribute('data-project', item.projectId);
+  const img = document.createElement('img'); 
+  img.src = item.src; 
+  img.alt = 'Наша работа'; 
+  img.loading = 'lazy'; 
+  img.onload = () => img.classList.add('loaded');
+  div.appendChild(img); 
+  div.addEventListener('click', () => { 
+    const page = document.getElementById(`page-${item.projectId}`);
+    if (page) { 
+      document.body.style.overflow = 'hidden'; 
+      page.classList.add('active'); 
+      window.history.pushState({ page: 'project' }, ''); 
+    } 
+  });
+  largeTrack.appendChild(div); 
+});
 
-    let currentSet = 0; const totalSets = largeImages.length;
-    function slideToSet(setIndex) {
-      currentSet = Math.max(0, Math.min(setIndex, largeImages.length * 2));
-      largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
-      document.querySelectorAll('.gallery-dot').forEach((dot, i) => { dot.classList.toggle('active', i === (currentSet % totalSets)); });
+let currentSet = 0;
+const totalSets = largeImages.length;
+let autoSlideTimer = null;
+let isAnimating = false;
+
+function slideToSet(setIndex) {
+  if (isAnimating) return;
+  
+  currentSet = Math.max(0, Math.min(setIndex, largeImages.length * 2 - 1));
+  largeTrack.style.transition = 'transform 0.4s ease';
+  largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
+  
+  document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === (currentSet % totalSets));
+  });
+  
+  // Сбрасываем таймер авто-прокрутки
+  if (autoSlideTimer) {
+    clearInterval(autoSlideTimer);
+    autoSlideTimer = null;
+  }
+  startAutoSlide();
+}
+
+function startAutoSlide() {
+  if (autoSlideTimer) clearInterval(autoSlideTimer);
+  autoSlideTimer = setInterval(() => {
+    if (!isAnimating) {
+      slideToSet(currentSet + 1);
     }
-    document.getElementById('galleryPrev').addEventListener('click', () => slideToSet(currentSet - 1));
-    document.getElementById('galleryNext').addEventListener('click', () => slideToSet(currentSet + 1));
-    function nextSlide() { slideToSet(currentSet + 1); if (currentSet >= largeImages.length * 2) { setTimeout(() => { largeTrack.style.transition = 'none'; currentSet = currentSet % largeImages.length; slideToSet(currentSet); setTimeout(() => { largeTrack.style.transition = 'transform 0.4s ease'; }, 50); }, 400); } }
-    setInterval(nextSlide, 5000);
-    window.addEventListener('resize', () => slideToSet(currentSet));
+  }, 5000);
+}
+
+// Обработчики для стрелок — без лагов
+document.getElementById('galleryPrev').addEventListener('click', function(e) {
+  e.preventDefault();
+  if (!isAnimating) {
+    isAnimating = true;
+    slideToSet(currentSet - 1);
+    setTimeout(() => { isAnimating = false; }, 400);
+  }
+});
+
+document.getElementById('galleryNext').addEventListener('click', function(e) {
+  e.preventDefault();
+  if (!isAnimating) {
+    isAnimating = true;
+    slideToSet(currentSet + 1);
+    setTimeout(() => { isAnimating = false; }, 400);
+  }
+});
+
+// Обработчик окончания анимации
+largeTrack.addEventListener('transitionend', function() {
+  isAnimating = false;
+  // Если дошли до края — перепрыгиваем без анимации
+  if (currentSet >= largeImages.length * 2) {
+    largeTrack.style.transition = 'none';
+    currentSet = currentSet % largeImages.length;
+    largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
+    setTimeout(() => { largeTrack.style.transition = 'transform 0.4s ease'; }, 50);
+  }
+});
+
+// Обработчик ресайза
+window.addEventListener('resize', () => {
+  largeTrack.style.transition = 'none';
+  largeTrack.style.transform = `translateX(-${currentSet * window.innerWidth}px)`;
+  setTimeout(() => { largeTrack.style.transition = 'transform 0.4s ease'; }, 50);
+});
+
+// Запускаем авто-прокрутку
+startAutoSlide();
 
     // АНИМАЦИЯ + ПАРАЛЛАКС
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
